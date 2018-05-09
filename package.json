@@ -1,0 +1,31 @@
+{
+  "name": "sketch-to-flutter",
+  "version": "1.0.0",
+  "description": "Sketch to Flutter",
+  "main": "index.js",
+  "dependencies": {
+    "@types/core-decorators": "^0.20.0",
+    "core-decorators": "^0.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristianmandrup/SketchToFlutter.git"
+  },
+  "keywords": [
+    "sketch",
+    "flutter",
+    "generator"
+  ],
+  "author": "Kristian Mandrup <kmandrup@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kristianmandrup/SketchToFlutter/issues"
+  },
+  "homepage": "https://github.com/kristianmandrup/SketchToFlutter#readme"
+}

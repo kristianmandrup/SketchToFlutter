@@ -1,0 +1,21 @@
+{
+  "name": "Export for Flutter",
+  "identifier": "com.yeay.Flutter",
+  "version": "0.0.1",
+  "description": "Export Flutter code directly for Sketch!",
+  "authorEmail": "kmandrup@gmail.com",
+  "author": "Kristian Mandrup",
+  "commands": [
+    {
+      "script": "FlutterExport.js",
+      "handler": "onRun",
+      "shortcut": "command alt k",
+      "name": "Copy Flutter Code",
+      "identifier": "FlutterExport"
+    }
+  ],
+  "menu": {
+    "title": " 📲 Sketch to Flutter",
+    "items": ["FlutterExport"]
+  }
+}
