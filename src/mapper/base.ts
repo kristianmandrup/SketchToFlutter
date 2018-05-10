@@ -1,9 +1,7 @@
-import { Color } from "./color";
-
-export class Converter {
+export class BaseMapper {
   nodes = [];
 
-  constructor() {}
+  constructor(public obj: any) {}
 
   node(nodeObj: any) {
     return nodeObj;
@@ -14,11 +12,11 @@ export class Converter {
   }
 
   lineColor(color): any {
-    return new Color(color).convert();
+    // return new Color(color).convert();
   }
 
   sanitizeName(str) {
-    return this.lowerCaseFirstLetter(removeSpaces(str));
+    return this.lowerCaseFirstLetter(this.removeSpaces(str));
   }
 
   lowerCaseFirstLetter(string) {

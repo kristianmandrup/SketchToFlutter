@@ -1,59 +1,25 @@
 import { autobind } from "core-decorators";
-import { Button } from "../button";
-import { Converter } from "../converter";
+import { Button } from "./button";
+import { BaseMapper } from "../base";
 
-export class ArtBoard extends Converter {
-  selection: any;
-  labels = [];
-  buttons = [];
-  shapes = [];
-  allElements = [];
-
-  artboardName: string = "DefaultViewName";
-  artboardBackgroundColor: any;
-
-  constructor(context: any) {
-    super();
-    this.selection = context.api().selectedDocument.selectedLayers;
+export class SwiftArtBoardMapper extends BaseMapper {
+  constructor(public artboard: any) {
+    super(artboard);
   }
 
-  convert() {
-    this.selection.iterate(this.handleSelected);
-    this.allElements = this.allElements.reverse();
-    this.labels = this.labels.reverse();
-    this.shapes = this.shapes.reverse();
-    this.buttons = this.buttons.reverse();
-  }
-
-  @autobind
-  handleSelected(item) {
-    if (!item.isArtboard) return;
-    this.artboardName = `${removeSpaces(item.name)}View`;
-    this.artboardBackgroundColor = item.sketchObject.backgroundColor();
-    item.iterate(this.handleSketchItem);
-  }
-
-  @autobind()
-  handleSketchItem(element) {
-    if (element.isText) {
-      this.labels.push(element);
-    } else if (element.isShape) {
-      this.shapes.push(element);
-    } else if (element.isGroup) {
-      // buttons?
-      this.buttons.push(element);
-    }
-    this.allElements.push(element);
+  artboardName() {
+    return this.artboard.name;
   }
 
   writeAll() {
-    const { addNode, header, allElements } = this;
+    const { addNode, header, artboard } = this;
+    const { allElements } = artboard;
 
     // Header
     this.header(this.artboardName);
 
     // Declarations
-    this.declarationsFor(this.allElements);
+    this.declarationsFor(allElements);
 
     // Init
     this.init();
@@ -113,7 +79,7 @@ export class ArtBoard extends Converter {
 
   doShapes(shapes) {
     shapes.map(shape => {
-      const elementName = sanitizeName(shape.name);
+      const elementName = this.sanitizeName(shape.name);
       const color = shape.sketchObject
         .style()
         .fills()[0]
@@ -138,10 +104,5 @@ export class ArtBoard extends Converter {
   doContent(labels) {
     // Content
     this.contentForLabels(labels);
-  }
-
-  copyAll() {
-    this.log(fullText);
-    this.copyText(fullText);
   }
 }
