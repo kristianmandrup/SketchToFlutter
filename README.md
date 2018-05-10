@@ -52,6 +52,15 @@ Uses the [Sketch Javascript API](https://github.com/BohemianCoding/SketchAPI)
 
 See [Sketch 49 new api](http://sketchplugins.com/d/591-sketch-49-new-api-and-future-plans)
 
+### Phases
+
+* Extract: layout sketch data via Sketch Javascript API
+* Structure: structure the layout data to be more usable
+  * determine grid structures (columns, rows) of grouped layers
+  * determine padding between layers
+* Mapping: Use mapper to map structure to relevant output tree
+* Generate source: Generate source code from output tree
+
 ## Improvements
 
 #### Fonts
