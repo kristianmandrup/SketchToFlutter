@@ -18,7 +18,21 @@ const colorMap = {
   "0000": "clear"
 };
 
+export interface IColor {
+  value: string;
+}
+
+export interface IRgb {
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+}
+
 export class Color extends Converter {
+  name: string;
+  rgb: IRgb;
+
   constructor(public color?: any) {
     super();
   }

@@ -1,6 +1,10 @@
 import { Converter } from "../converter";
 
 export class Text extends Converter {
+  alignment: IAlignment;
+  lineSpacing: ILineSpacing;
+  fixedWidth: boolean;
+
   constructor(public text) {
     super();
   }
