@@ -1,7 +1,8 @@
 import { autobind } from "core-decorators";
-import { Converter } from "./converter";
+// import { Converter } from "./converter";
 
-export class Declarations extends Converter {
+// extends Converter
+export class Declarations {
   declarationsFor(elements) {
     var s = "";
     elements.map(this.declarationsForSingleText);
@@ -35,9 +36,9 @@ export class Declarations extends Converter {
   }
 
   forText(e) {
-    this.addNode({
-      type: "text",
-      id: sanitizeName(e.name)
-    });
+    // this.addNode({
+    //   type: "text",
+    //   id: sanitizeName(e.name)
+    // });
   }
 }

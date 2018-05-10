@@ -8,6 +8,7 @@ export interface ILayer {
   hidden: boolean;
   frame: IRectangle;
   flow: IFlow;
+  rectParent: IRectangle;
 }
 
 export class Layer implements ILayer {
@@ -19,6 +20,9 @@ export class Layer implements ILayer {
 
   frame: IRectangle;
   flow: IFlow;
+  rectParent: IRectangle;
 
-  constructor(public layer: any) {}
+  constructor(public layer: any) {
+    this.rectParent = layer.localRectToParentRect;
+  }
 }

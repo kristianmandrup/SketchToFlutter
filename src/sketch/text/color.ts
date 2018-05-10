@@ -1,4 +1,6 @@
-class TextColor {
+import { Converter } from "../converter";
+
+export class TextColor extends Converter {
   node(text) {
     this.addNode({
       type: "color",

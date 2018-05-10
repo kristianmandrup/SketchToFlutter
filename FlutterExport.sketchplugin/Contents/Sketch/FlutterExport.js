@@ -30,7 +30,6 @@ function parse(context) {
 
 }
 
-
 function copyText(text) {
   var pasteBoard = [NSPasteboard generalPasteboard];
   [pasteBoard declareTypes: [NSArray arrayWithObject: NSPasteboardTypeString] owner: nil];
