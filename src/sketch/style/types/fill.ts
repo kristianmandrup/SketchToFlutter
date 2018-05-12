@@ -1,17 +1,11 @@
-export class FillType {
-  constructor(public map: any) {}
+import {TypeResolver} from "./base";
 
-  resolve(type: any): string {
-    const { map } = this;
-    switch (type) {
-      case map.Color:
-        return "color";
-      case map.Gradient:
-        return "gradient";
-      case map.Pattern:
-        return "pattern";
-      case map.Noise:
-        return "noise";
-    }
-  }
+enum mode {
+  Color,
+  Gradient,
+  Pattern,
+  Noise
+}
+export class FillType extends TypeResolver {
+  mode = mode
 }

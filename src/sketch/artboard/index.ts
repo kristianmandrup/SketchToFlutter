@@ -1,52 +1,53 @@
-import { autobind } from "core-decorators";
+import {autobind} from "core-decorators";
+import {ArtboardItem} from "./item";
 
 export class ArtBoard {
-  selection: any;
+  selection : any;
   labels = [];
   buttons = [];
   shapes = [];
   allElements = [];
-  artboardBackgroundColor: any;
+  artboardBackgroundColor : any;
+  artboardItem : any
+  extractArtboardItem : Function
 
-  constructor(public context: any) {
-    this.selection = context.api().selectedDocument.selectedLayers;
+  constructor(public context : any) {
+    this.selection = context
+      .api()
+      .selectedDocument
+      .selectedLayers;
+    this.artboardItem = new ArtboardItem(this)
+    this.extractArtboardItem = this
+      .artboardItem
+      .bind(this.artboardItem)
   }
 
   convert() {
-    this.selection.iterate(this.handleSelected);
-    this.allElements = this.allElements.reverse();
-    this.labels = this.labels.reverse();
-    this.shapes = this.shapes.reverse();
-    this.buttons = this.buttons.reverse();
+    this
+      .selection
+      .iterate(this.extractSelected);
+    this.allElements = this
+      .allElements
+      .reverse();
+    this.labels = this
+      .labels
+      .reverse();
+    this.shapes = this
+      .shapes
+      .reverse();
+    this.buttons = this
+      .buttons
+      .reverse();
   }
 
   @autobind
-  handleSelected(item) {
-    if (!item.isArtboard) return;
-    this.artboardBackgroundColor = item.sketchObject.backgroundColor();
-    item.iterate(this.handleSketchItem);
+  extractSelected(item) {
+    if (!item.isArtboard) 
+      return;
+    this.artboardBackgroundColor = item
+      .sketchObject
+      .backgroundColor();
+    item.iterate(this.extractArtboardItem);
   }
 
-  @autobind()
-  handleSketchItem(element) {
-    const { label, shape, group, allElements } = this;
-    label(element) || shape(element) || group(element);
-    allElements.push(element);
-  }
-
-  label(element) {
-    if (!element.isText) return;
-    this.labels.push(element);
-  }
-
-  shape(element) {
-    if (!element.isShape) return;
-    this.shapes.push(element);
-  }
-
-  group(element) {
-    if (!element.isGroup) return;
-    // buttons?
-    this.buttons.push(element);
-  }
 }

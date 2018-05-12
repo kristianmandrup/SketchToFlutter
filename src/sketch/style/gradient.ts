@@ -1,20 +1,23 @@
-import { Color } from "../color";
-import { IPoint } from "../point";
+import {Color} from "../color";
+import {IPoint} from "../point";
+import {BaseStyler} from "./base";
 
 export interface IStop {
-  position: number;
-  color: string;
+  position : number;
+  color : string;
 }
 
 export interface IGradient {
-  stops: IStop[];
+  stops : IStop[];
 }
 
-export class Gradient {
-  from: IPoint;
-  to: IPoint;
-  fillType: string;
-  stops: IStop[];
+export class Gradient extends BaseStyler {
+  from : IPoint;
+  to : IPoint;
+  fillType : string;
+  stops : IStop[];
 
-  constructor(public gradient: any) {}
+  constructor(public element : any) {
+    super(element)
+  }
 }

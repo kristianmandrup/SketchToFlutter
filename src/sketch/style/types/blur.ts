@@ -1,17 +1,12 @@
-export class BlurType {
-  constructor(public map: any) {}
+import {TypeResolver} from "./base";
 
-  resolve(type: any): string {
-    const { map } = this;
-    switch (type) {
-      case map.Gaussian:
-        return "gaussian";
-      case map.Motion:
-        return "motion";
-      case map.Zoom:
-        return "zoom";
-      case map.Background:
-        return "background";
-    }
-  }
+enum mode {
+  Gaussian,
+  Motion,
+  Zoom,
+  Background
+}
+
+export class BlurType extends TypeResolver {
+  mode = mode
 }

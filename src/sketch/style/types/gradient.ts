@@ -1,15 +1,12 @@
-export class GradientType {
-  constructor(public map: any) {}
+import {TypeResolver} from "./base";
 
-  resolve(type: any): string {
-    const { map } = this;
-    switch (type) {
-      case map.Linear:
-        return "linear";
-      case map.Radial:
-        return "radial";
-      case map.Angular:
-        return "angular";
-    }
-  }
+enum mode {
+  Linear,
+  Radial,
+  Angular
+
+}
+
+export class GradientType extends TypeResolver {
+  mode = mode
 }
