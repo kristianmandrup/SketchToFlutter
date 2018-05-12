@@ -15,28 +15,31 @@ By generating platform specific UI code from a Sketch Artboard we can save hours
 
 We aim to support:
 
-* Swift UIKit
 * Flutter
-* Web components?
-* Android Kotlin?
+* Swift UIKit
+* Android Kotlin
+* Polymer Web components (via `lit-html`)
 
 ## What
 
-A **Sketch plugin** with a simple shortcut that generates basic code form wich you can kickstart developing your view.
+A **Sketch plugin** with a that can generate basic UI code to kickstart developing your views (UI).
 
 ## About
 
 This is a proof of concept that we can generate view code from Sketch Artboards.
 Be aware that this is very early in development.
 
-Yes this will never be perfect (huh wait for AI!), because we all have our coding styles etc. But this is not the goal anyway, the goal is to kickstart view dev and save 80% of integration time. Then you are free to change the code as you like :)
+The goal is to kickstart view dev and save 80% of the time normally needed to manually port a Sketch UI prototype to platform specific UI code.
 
 ## Usage
 
 * Install (double click) plugin
 * Select Artboard
-  * Swift: `cmd` + `alt` + `K`
-* Copy/Paste generate code for into the IDE/editor that contains your project
+  * Flutter: `cmd` + `alt` + `F`
+  * Swift: `cmd` + `alt` + `S`
+  * Kotlin: `cmd` + `alt` + `K`
+  * Polymer: `cmd` + `alt` + `P`
+* Copy/Paste generated code into one or more files in the IDE/editor of your project
 
 ## Get the best out of it
 

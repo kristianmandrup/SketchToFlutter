@@ -1,0 +1,41 @@
+{
+  "name": "Export for Flutter",
+  "identifier": "com.yeay.Flutter",
+  "version": "0.0.1",
+  "description": "Export Flutter code directly for Sketch!",
+  "authorEmail": "kmandrup@gmail.com",
+  "author": "Kristian Mandrup",
+  "commands": [{
+      "script": "FlutterExport.js",
+      "handler": "onRun",
+      "shortcut": "command alt f",
+      "name": "Copy Flutter Code",
+      "identifier": "FlutterExport"
+    },
+    {
+      "script": "iOsSwiftExport.js",
+      "handler": "onRun",
+      "shortcut": "command alt s",
+      "name": "Copy iOS Swift UI Code",
+      "identifier": "SwiftExport"
+    },
+    {
+      "script": "AndroidKotlinExport.js",
+      "handler": "onRun",
+      "shortcut": "command alt k",
+      "name": "Copy Android Kotlin UI Code",
+      "identifier": "KotlinExport"
+    },
+    {
+      "script": "PolymerExport.js",
+      "handler": "onRun",
+      "shortcut": "command alt p",
+      "name": "Copy Polymer Code",
+      "identifier": "PolymerExport"
+    }
+  ],
+  "menu": {
+    "title": " 📲 Sketch to Code",
+    "items": ["FlutterExport", "SwiftExport", "KotlinExport", "PolymerExport"]
+  }
+}

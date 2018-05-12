@@ -1,16 +1,13 @@
+import {ISized} from './_imports'
+import {SortBy} from './sort-by';
+import {GroupBy} from './group-by';
+
 interface IGridPosition {
-  col: number;
-  row: number;
+  col : number;
+  row : number;
 }
 
-interface IRectangle {
-  width: number;
-  height: number;
-  x: number;
-  y: number;
-}
-
-type IGridItem = IGrid | IRectangle | undefined;
+type IGridItem = IGrid | ISized | undefined;
 
 interface IGrid {
   rows?: IGridRow[];
@@ -18,100 +15,78 @@ interface IGrid {
 }
 
 interface IGridRow {
-  columns: IGridItem[];
+  columns : IGridItem[];
 }
 
 interface IGridColumn {
-  rows: IGridRow[];
+  rows : IGridRow[];
 }
 
 export class GridLayout {
-  rectangles: IRectangle[];
+  rectangles : ISized[];
 
-  rows: IRectangle[][];
-  columns: IRectangle[][];
-  grid: any;
+  rows : ISized[][];
+  columns : ISized[][];
+  grid : any;
 
-  offsetMaps: {
+  offsetMaps : {
     vertical: {};
     horizontal: {};
   };
 
-  constructor(public group: any) {
+  constructor(public group : any) {
     this.rectangles = group.rectangles;
     this.rows = this.resolveRows();
     this.columns = this.resolveColumns();
   }
 
   resolveGrid() {
-    this.rows.map((row: IRectangle[], rowIndex: number) => {
-      row.map((layer: IRectangle) => {
-        const columnIndex = this.findMatchingColumnIndex(layer);
-        this.setInGrid(layer, {
-          col: columnIndex,
-          row: rowIndex
+    this
+      .rows
+      .map((row : ISized[], rowIndex : number) => {
+        row.map((layer : ISized) => {
+          const columnIndex = this.findMatchingColumnIndex(layer);
+          this.setInGrid(layer, {
+            col: columnIndex,
+            row: rowIndex
+          });
         });
       });
-    });
   }
 
-  findMatchingColumnIndex(layer: IRectangle): number {
-    return 0;
-  }
+  findMatchingColumnIndex(layer : ISized) : number {return 0;}
 
-  setInGrid(layer: IRectangle, position: IGridPosition) {
+  setInGrid(layer : ISized, position : IGridPosition) {
     this.grid.rows = this.grid.rows || {};
     const row = this.grid.rows[position.row] || {};
     row.columns = row.columns || {};
     row.columns[position.col] = layer;
   }
 
-  resolveRows(): IRectangle[][] {
+  resolveRows() : ISized[][]{
     this.groupByOffset("vertical");
     const keys = this.sortedOffsetMap("vertical");
     const offsetMap = this.offsetMaps["vertical"];
-    return keys.map((key: string) => {
-      return offsetMap[key] as IRectangle[];
+    return keys.map((key : string) => {
+      return offsetMap[key]as ISized[];
     });
   }
 
-  resolveColumns(): IRectangle[][] {
+  resolveColumns() : ISized[][]{
     this.groupByOffset("horizontal");
     const keys = this.sortedOffsetMap("horizontal");
     const offsetMap = this.offsetMaps["horizontal"];
-    return keys.map((key: string) => {
-      return offsetMap[key] as IRectangle[];
+    return keys.map((key : string) => {
+      return offsetMap[key]as ISized[];
     });
   }
 
-  // rectangles on same row (same start Y)
-  groupByOffset(name: string = "vertical", rectangles?: IRectangle[]): void {
-    rectangles = rectangles || this.rectangles;
-    rectangles.map((layer: IRectangle) => {
-      const key = layer.y;
-      this.addToMap(name, key, layer);
-    });
+  groupByOffset(name : string = "vertical", rectangles?: ISized[]) : void {
+    new GroupBy(this).groupByOffset(name, rectangles)
   }
 
-  sortedOffsetMap(offsetMap: any): string[] {
-    const keys = Object.keys(offsetMap);
-    return keys.sort((keyA: string, keyB: string) => {
-      if (Number(keyA) == Number(keyB)) return 0;
-      return Number(keyA) < Number(keyB) ? -1 : 1;
-    });
+  sortedOffsetMap(offsetMap : any) : string[] {
+    return new SortBy(this).sortedOffsetMap(offsetMap)
   }
 
-  addToMap(map: any, key: any, layer: IRectangle) {
-    map = typeof map === "string" ? this.offsetMaps[map] : map;
-    map[key] = map[key] || [];
-    map[key].push(layer);
-  }
-
-  sortBy(prop: string = "x", rectangles?: IRectangle[]) {
-    rectangles = rectangles || this.rectangles;
-    return rectangles.sort((rectA: IRectangle, rectB: IRectangle) => {
-      if (rectA[prop] == rectB[prop]) return 0;
-      return rectA[prop] < rectB[prop] ? -1 : 1;
-    });
-  }
 }
