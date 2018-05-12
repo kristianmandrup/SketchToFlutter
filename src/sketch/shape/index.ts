@@ -6,6 +6,7 @@ export interface IShape {
 }
 
 export class Shape extends Layer {
+  type = 'shape'
   style : IStyle
 
   constructor(public shape : IShape) {

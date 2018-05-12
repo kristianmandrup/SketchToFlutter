@@ -1,17 +1,24 @@
 import {autobind} from "core-decorators";
 import {ArtboardItem} from "./item";
+import {Serializer} from "../../serializer";
+import {BaseSketchElement} from "../base";
 
-export class ArtBoard {
+export class ArtBoard extends BaseSketchElement {
+  type = 'artboard'
+
   selection : any;
+  groups = [];
   labels = [];
-  buttons = [];
   shapes = [];
   allElements = [];
-  artboardBackgroundColor : any;
+
+  backgroundColor : any;
+
   artboardItem : any
   extractArtboardItem : Function
 
   constructor(public context : any) {
+    super()
     this.selection = context
       .api()
       .selectedDocument
@@ -19,32 +26,43 @@ export class ArtBoard {
     this.artboardItem = new ArtboardItem(this)
     this.extractArtboardItem = this
       .artboardItem
+      .extract
       .bind(this.artboardItem)
+  }
+
+  serializedProps() {
+    return [
+      ...super.serializedProps(),
+      'backgroundColor',
+      'shapes',
+      'artboardItem'
+    ]
   }
 
   convert() {
     this
       .selection
       .iterate(this.extractSelected);
-    this.allElements = this
-      .allElements
-      .reverse();
-    this.labels = this
-      .labels
-      .reverse();
-    this.shapes = this
-      .shapes
-      .reverse();
-    this.buttons = this
-      .buttons
-      .reverse();
+    this.setAllReversed('allElements', 'shapes')
+  }
+
+  setAllReversed(...names : string[]) : void {
+    names.map(name => this.setReversed(name))
+  }
+
+  setReversed(name : string) {
+    this[name] = this[name].reverse()
+  }
+
+  reverse(elements : any[]) {
+    return elements.reverse()
   }
 
   @autobind
   extractSelected(item) {
     if (!item.isArtboard) 
       return;
-    this.artboardBackgroundColor = item
+    this.backgroundColor = item
       .sketchObject
       .backgroundColor();
     item.iterate(this.extractArtboardItem);

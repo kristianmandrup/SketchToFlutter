@@ -1,0 +1,2 @@
+export {ViewModelParser}
+from './parser'

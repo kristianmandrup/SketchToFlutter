@@ -1,33 +1,39 @@
 function onRun(context) { // Comment to launch script in Sketch "Custom Script"
   parse(context)
 }; // Comment to launch script in Sketch "Custom Script"
-
+const platform = 'polymer'
 const Document = require('sketch/dom').Document
 const document = Document.getSelectedDocument()
 
+const ctx = {
+  platform: platform,
+  lines: [],
+  selection: context.api().selectedDocument.selectedLayers,
+  model: {}
+}
+
+function createSketchModel(selection) {
+  return new SketchModel(selection || ctx.selection)
+}
+
+function createViewModelParser(model) {
+  return new ViewModelParser(model || ctx.model.sketch)
+}
+
+function createMappedUIModel(platform, model) {
+  return new MappedUIModel(model, platform)
+}
+
 function parse(context) {
-  var lines = []
-  var selection = context.api().selectedDocument.selectedLayers
-  selection.iterate(function (item) {
-    if (item.isText) {
-      write(declarationsForSingleText(item))
-      write(`${sanitizeName(item.name)}.text = ${formattedTextForText(item.text)}`)
-      write(styleForText(item))
-    }
-  });
+  const opts = {}
 
-  // Print + copy
-  var fullText = ""
-  lines.forEach(function (line) {
-    fullText += line + "\n"
-  })
-  log(fullText)
-  copyText(fullText)
+  ctx.selection = context.api().selectedDocument.selectedLayers
+  ctx.model.sketch = createSketchModel(selection)
+  ctx.model.parsed = createViewModelParser(ctx.model.sketch).parse()
+  ctx.model.mapped = createMappedUIModel(ctx.platform, ctx.model.parsed)
 
-  function write(text) {
-    lines.push(text)
-  }
-
+  const sourceCodeTxt = createCodeWriter(opts).use(ctx.model.mapped).write()
+  copyText(sourceCodeTxt)
 }
 
 function copyText(text) {

@@ -12,12 +12,9 @@ export interface ILayerGroup {
 }
 
 export class LayerGroup extends Layer implements ILayerGroup {
-  id : string;
-  name : string;
-  parent : any;
-  frame : IRectangle;
+  type = 'group'
+
   style : IStyle;
-  flow : IFlow;
   layers : ILayer[];
   rectangles : IRectangle[];
 
@@ -25,6 +22,15 @@ export class LayerGroup extends Layer implements ILayerGroup {
     super(group);
     this.rectangles = this
       .layers
-      .map(layer => layer.rectParent);
+      .map(layer => layer.sized);
   }
+
+  serializedProps() {
+    return [
+      ...super.serializedProps(),
+      'layers',
+      'rectangles'
+    ]
+  }
+
 }

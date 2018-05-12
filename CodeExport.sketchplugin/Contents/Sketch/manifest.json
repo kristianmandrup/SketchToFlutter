@@ -1,8 +1,8 @@
 {
-  "name": "Export for Flutter",
-  "identifier": "com.yeay.Flutter",
+  "name": "Export Source Code ",
+  "identifier": "com.tecla5.sketchToCode",
   "version": "0.0.1",
-  "description": "Export Flutter code directly for Sketch!",
+  "description": "Export platorm specific UI code directly from Sketch!",
   "authorEmail": "kmandrup@gmail.com",
   "author": "Kristian Mandrup",
   "commands": [{

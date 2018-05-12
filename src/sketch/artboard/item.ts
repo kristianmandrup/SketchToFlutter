@@ -1,51 +1,53 @@
 import {autobind} from "core-decorators";
+import {BaseSketchElement} from "../base";
 
 export class ArtboardItem {
-  labels = [];
-  buttons = [];
-  shapes = [];
-  allElements = [];
-
-  constructor(public artboard : any) {
-    this.allElements = artboard
-    this.labels = artboard.label;
-    this.buttons = artboard.buttons
-    this.shapes = artboard.shapes
+  get serializedProps() {
+    return ['label', 'shapes']
   }
+
+  constructor(public artboard : any) {}
 
   @autobind()
   extract(element : any) {
-    const {label, shape, group, allElements} = this;
-    label(element) || shape(element) || group(element);
-    allElements.push(element);
+    // methods
+    const {addToLabels, addToShapes, addToGroups, addToElements} = this;
+
+    // add to type container
+    addToLabels(element) || addToShapes(element) || addToGroups(element);
+
+    // add to list of all elements
+    addToElements(element);
+  }
+
+  addToElements(element : any) {
+    this.addTo('elements', element)
+  }
+
+  addTo(colName : string, element : any) {
+    this
+      .artboard[colName]
+      .push(element);
   }
 
   @autobind()
-  label(element) {
+  addToLabels(element) {
     if (!element.isText) 
       return;
-    this
-      .labels
-      .push(element);
+    this.addTo('labels', element)
   }
 
   @autobind()
-  shape(element) {
+  addToShapes(element) {
     if (!element.isShape) 
       return;
-    this
-      .shapes
-      .push(element);
+    this.addTo('shapes', element)
   }
 
   @autobind()
-  group(element) {
+  addToGroups(element) {
     if (!element.isGroup) 
       return;
-    
-    // buttons?
-    this
-      .buttons
-      .push(element);
+    this.addTo('groups', element)
   }
 }
