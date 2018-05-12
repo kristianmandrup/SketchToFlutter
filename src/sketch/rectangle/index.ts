@@ -1,4 +1,4 @@
-import {Sized, ISized} from "../sized";
+import {Sized, ISized} from "../../generic/sized";
 
 export interface IRectangle extends ISized {}
 

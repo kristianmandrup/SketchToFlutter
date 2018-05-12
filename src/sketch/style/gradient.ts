@@ -1,6 +1,5 @@
-import {Color} from "../color";
 import {BaseStyler} from "./base";
-import {IPosition} from "../position";
+import {IPosition} from "../../generic";
 
 export interface IStop {
   position : number;

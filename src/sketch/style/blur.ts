@@ -1,7 +1,6 @@
-import {Color, IColor} from "../color";
 import {IGradient} from "./gradient";
 import {BaseStyler} from "./base";
-import {IPosition} from "../position";
+import {IPosition} from "../../generic";
 import {BlurType} from "./types";
 
 export class Blur extends BaseStyler {

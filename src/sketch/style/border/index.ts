@@ -1,6 +1,4 @@
-// import {Color} from "../color";
 import {IGradient} from "../gradient";
-import {IColor} from "../../color";
 import {FillType, GradientType} from "../types";
 import {BorderPositionType} from "../types/border-position";
 import {BaseStyler} from "../base";
