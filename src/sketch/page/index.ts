@@ -1,18 +1,9 @@
-import {ILayer} from "../layer/layer";
-import {IRectangle} from "../rectangle/";
-import {IDocument} from "../document/";
+import {LayerGroup, ILayerGroup} from "../layer";
 
-export interface IPage {}
+export interface IPage extends ILayerGroup {}
 
-export class Page {
-  id : string;
-  name : string;
-  layers : ILayer[];
-  frame : IRectangle;
-  parent : IDocument;
-
+export class Page extends LayerGroup implements IPage {
   constructor(page : any) {
-    this.id = page.id;
-    this.name = page.name;
+    super(page)
   }
 }

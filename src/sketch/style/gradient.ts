@@ -1,6 +1,6 @@
 import {Color} from "../color";
-import {IPoint} from "../point";
 import {BaseStyler} from "./base";
+import {IPosition} from "../position";
 
 export interface IStop {
   position : number;
@@ -12,8 +12,8 @@ export interface IGradient {
 }
 
 export class Gradient extends BaseStyler {
-  from : IPoint;
-  to : IPoint;
+  from : IPosition;
+  to : IPosition;
   fillType : string;
   stops : IStop[];
 

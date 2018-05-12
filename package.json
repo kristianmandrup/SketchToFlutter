@@ -1,7 +1,7 @@
 {
   "name": "sketch-to-flutter",
   "version": "1.0.0",
-  "description": "Sketch to Flutter",
+  "description": "Sketch to Code",
   "main": "index.js",
   "dependencies": {
     "@types/core-decorators": "^0.20.0",

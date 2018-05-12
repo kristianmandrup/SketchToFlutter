@@ -1,5 +1,8 @@
 import {Fill} from "./fill";
 import {Border} from "./border";
+import {BlendingModeType} from "./types";
+import {Blur} from "./blur";
+import {Shadow} from "./shadow";
 
 export interface IStyle {
   opacity : number;
@@ -19,21 +22,44 @@ export class Style {
   borders : any // incl borderOptions
   shadows : any // incl innerShadows
 
-  constructor(style : IStyle) {
-    this.borders = style.borders;
-    this.opacity = style.opacity;
-    this.blur = style.blur;
-
+  constructor(public style : IStyle) {
+    this.init()
   }
 
   init() {
+    this.opacity = this.style.opacity;
     this
+      .setBlur()
+      .setBlendingMode()
       .setFills()
-      .setBorders();
+      .setBorders()
+      .setShadows();
+  }
+
+  setBlur() {
+    this.blur = new Blur(this.style)
+    return this
+  }
+
+  setBlendingMode() {
+    this.blendingMode = new BlendingModeType().resolve(this.style.blendingMode);
+    return this
+  }
+
+  // TODO
+  setShadows() {
+    this.shadows = this
+      .style
+      .shadows
+      .map(shadow => {
+        return new Shadow(shadow);
+      });
+    return this
   }
 
   setFills() {
-    this
+    this.fills = this
+      .style
       .fills
       .map(fill => {
         return new Fill(fill);
@@ -42,7 +68,8 @@ export class Style {
   }
 
   setBorders() {
-    this
+    this.borders = this
+      .style
       .borders
       .map(border => {
         return new Border(border);

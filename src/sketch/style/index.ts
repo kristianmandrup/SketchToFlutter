@@ -1,2 +1,2 @@
-export {Style}
+export {IStyle, Style}
 from './style'

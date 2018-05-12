@@ -1,13 +1,14 @@
-import { ArtBoard } from "../artboard";
+import {ArtBoard} from "../artboard";
 
 export interface ISymbolMaster {
-  symbolId: string;
+  symbolId : string;
 }
 
+// Should be converted to a View component of some sort
 export class SymbolMaster extends ArtBoard {
-  symbolId: string;
+  symbolId : string;
 
-  constructor(public symbol: any) {
+  constructor(public symbol : any) {
     super(symbol);
     this.symbolId = symbol.symbolId;
   }

@@ -1,9 +1,9 @@
-import { autobind } from "core-decorators";
-import { Button } from "./button";
-import { BaseMapper } from "../base";
+import {autobind} from "core-decorators";
+import {Button} from "./button";
+import {BaseMapper} from "../base";
 
-export class SwiftArtBoardMapper extends BaseMapper {
-  constructor(public artboard: any) {
+export class ArtBoard extends BaseMapper {
+  constructor(public artboard : any) {
     super(artboard);
   }
 
@@ -12,8 +12,8 @@ export class SwiftArtBoardMapper extends BaseMapper {
   }
 
   writeAll() {
-    const { addNode, header, artboard } = this;
-    const { allElements } = artboard;
+    const {addNode, header, artboard} = this;
+    const {allElements} = artboard;
 
     // Header
     this.header(this.artboardName);
@@ -30,9 +30,7 @@ export class SwiftArtBoardMapper extends BaseMapper {
     // Layout
     this.layout(allElements);
 
-    // Style
-
-    // Artboard Background Color
+    // Style Artboard Background Color
     this.backgroundColor();
   }
 
@@ -44,12 +42,14 @@ export class SwiftArtBoardMapper extends BaseMapper {
       });
     });
 
-    elements.reverse().map(e => {
-      this.addNode({
-        type: "subview",
-        id: sanitizeName(e.name)
+    elements
+      .reverse()
+      .map(e => {
+        this.addNode({
+          type: "subview",
+          id: sanitizeName(e.name)
+        });
       });
-    });
   }
 
   backgroundColor() {
@@ -60,18 +60,11 @@ export class SwiftArtBoardMapper extends BaseMapper {
   }
 
   header(viewName) {
-    this.addNode({
-      type: "import",
-      id: "UIKit"
-    });
-    this.addNode({
-      type: "class",
-      id: viewName,
-      extends: "StatelessWidget"
-    });
+    this.addNode({type: "import", id: "UIKit"});
+    this.addNode({type: "class", id: viewName, extends: "StatelessWidget"});
   }
 
-  doLabels(labels: any[]) {
+  doLabels(labels : any[]) {
     labels.map(label => {
       this.addNode(this.styleForText(l));
     });
@@ -80,7 +73,8 @@ export class SwiftArtBoardMapper extends BaseMapper {
   doShapes(shapes) {
     shapes.map(shape => {
       const elementName = this.sanitizeName(shape.name);
-      const color = shape.sketchObject
+      const color = shape
+        .sketchObject
         .style()
         .fills()[0]
         .color();
@@ -98,9 +92,10 @@ export class SwiftArtBoardMapper extends BaseMapper {
   }
 
   doButton(button) {
-    new Button(button).do();
-  }
-
+    new Button(button).do 
+      ();
+    }
+  
   doContent(labels) {
     // Content
     this.contentForLabels(labels);
