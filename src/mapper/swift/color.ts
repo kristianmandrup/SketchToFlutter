@@ -1,4 +1,4 @@
-import { Converter } from "./converter";
+// import { Converter } from "./converter";
 
 const colorMap = {
   "1111": "white",
@@ -19,38 +19,38 @@ const colorMap = {
 };
 
 export interface IColor {
-  value: string;
+  value : string;
 }
 
 export interface IRgb {
-  red: number;
-  green: number;
-  blue: number;
-  alpha: number;
+  red : number;
+  green : number;
+  blue : number;
+  alpha : number;
 }
 
-export class Color extends Converter {
-  name: string;
-  rgb: IRgb;
-
-  constructor(public color?: any) {
-    super();
+export class Color
+{ // extends Converter
+  name : string;
+  rgb : IRgb;
+  constructor(publiccolor?: any) {
+    //super();
   }
 
-  get colorMap() {
-    return colorMap;
+  get
+  colorMap() {
+    return
+    colorMap;
   }
 
   convert(color?: any) {
-    color = color || this.color;
-
+    // color = color || this.color;
     var red = Math.round(color.red() * 100) / 100;
     var green = Math.round(color.green() * 100) / 100;
     var blue = Math.round(color.blue() * 100) / 100;
     var alpha = Math.round(color.alpha() * 100) / 100;
     let colorKey = `${red}${green}${blue}${alpha}`;
     var color = colorMap[colorKey];
-
     color = color || {
       rgb: {
         red,
@@ -60,9 +60,6 @@ export class Color extends Converter {
       }
     };
 
-    this.addNode({
-      type: "color",
-      value: color
-    });
+    // this.addNode({type: "color", value: color});
   }
 }

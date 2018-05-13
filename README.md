@@ -59,7 +59,13 @@ Here are some rules you can follow to get the best export possible :
 
 If you stick to the following naming conventions, the generator will be supercharged with respect to generating code that better reflect your Sketch:
 
-Use the form `[type]:[name]` to indicate what type of element the layer is.
+Use the form `[name]:[type]#[config]` to indicate the:
+
+* name
+* type of element
+* extra settings
+
+See below for more details on conventions
 
 ### Symbols
 
@@ -67,19 +73,9 @@ Symbols are the Sketch equivalent of reusable view components. A Symbol master (
 
 Layers that are not Symbols will be turned into instances of the basic building blocks of the platform, much like using the HTML basic building blocks (or UI platform equivalent).
 
-#### Button
+#### Sketch design conventions
 
-`button:[name]` such as `button:save` will generate a `Button` class/instance called `Save`
-
-#### List
-
-`list:[name]` such as `list:people` will generate a `ListView` class/instance called `People`
-
-#### Scroll List
-
-`scroll-list:[name]` such as `scroll-list:people` will generate a `ScrollListView` class/instance called `People` which typically is an infinite scroll by default (ie. a feed)
-
-#### more to come
+See [Sketch Conventions](./Sketch-Conventions.md) document for a guide to adding meta-data to achieve optimal code generation
 
 ## Design
 
