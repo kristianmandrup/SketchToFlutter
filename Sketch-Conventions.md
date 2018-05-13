@@ -7,6 +7,8 @@ In order to optimize code generation from Sketch prototypes to your platform tar
 Sketch object such as layers, groups and symbols need to have sufficient meta-data in order
 for the model/code generator to understand what they really are. A simple name is not enough.
 
+Ideally (ie. in the future) if these conventions are being used sufficiently in the wild, then tools such as Sketch will hopefully provide better ways to add meta-data to models which are available in the API and exported data for use in code generation etc.
+
 ## Logical grouping
 
 Please group layers whenever they form a cohesive unit, such as a row or column, a button etc. Then use the Group (metadata) to indicate what the underlying unit is.
